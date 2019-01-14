@@ -1,3 +1,5 @@
-# DuplicateSearch
+# Duplicate Search
 
-Search duplicate files in HOME user folder 
+NOT sandboxed macOS program.
+
+Search duplicate files in HOME folder. Name of the files and file extensions doesn't matter.
