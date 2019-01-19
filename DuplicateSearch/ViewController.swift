@@ -20,6 +20,7 @@ final class ViewController: NSViewController {
 
   private func startSearch() {
     isSearchInProgress = true
+    // Better to use localized strings in real project
     searchButton.title = "Stop search"
     progressIndicator.doubleValue = 0
     dataSource = []
@@ -57,6 +58,7 @@ final class ViewController: NSViewController {
 
   private func stopSearch() {
     isSearchInProgress = false
+    // Better to use localized strings in real project
     searchButton.title = "Start search"
     dataManager.terminateSearch()
   }
@@ -64,10 +66,10 @@ final class ViewController: NSViewController {
   // MARK: - Actions
 
   @IBAction func onButtonClick(_ sender: Any) {
-    if (!isSearchInProgress) {
-      startSearch()
-    } else {
+    if (isSearchInProgress) {
       stopSearch()
+    } else {
+      startSearch()
     }
   }
 

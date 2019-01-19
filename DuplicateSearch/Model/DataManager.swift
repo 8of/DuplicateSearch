@@ -62,7 +62,7 @@ final class DataManager {
   private func convertDuplicatesToViewModel(duplicates: [Duplicate]) -> [String] {
     var answer: [String] = []
     for duplicate in duplicates {
-      // Better to make it with localized strings in real project
+      // Better to use localized strings in real project
       let formattedHeader = "\(duplicate.count) files \(duplicate.totalSize):"
       answer.append(formattedHeader)
       answer.append(contentsOf: duplicate.files)

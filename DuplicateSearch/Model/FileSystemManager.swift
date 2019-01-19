@@ -26,27 +26,29 @@ final class FileSystemManager {
   }
   
   private func getContentsOf(folder: URL, onContent: @escaping (NSData, URL)->(), onSearchStop: @escaping ()-> (), onSearchProgress: @escaping (Progress)->(), isToplevel: Bool) {
-    if (!isSearchInProgress) {
+    guard isSearchInProgress == true else {
       onSearchStop()
       return
     }
+
     let URLsList = URLsFrom(folder: folder)
     let progress = Progress.init(totalUnitCount: Int64(URLsList.count))
     self.progress.addChild(progress, withPendingUnitCount: Int64(URLsList.count))
     self.progress.totalUnitCount = self.progress.totalUnitCount + Int64(URLsList.count)
+
     for (index, url) in URLsList.enumerated() {
       progress.completedUnitCount = Int64(index + 1)
       onSearchProgress(self.progress)
 
       var isDirectory = ObjCBool(false)
-      if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory) {
-        if (isDirectory.boolValue) {
-          getContentsOf(folder: url, onContent: onContent, onSearchStop: onSearchStop, onSearchProgress: onSearchProgress, isToplevel: false)
-        } else {
-          if let contents = NSData.init(contentsOf: url) {
-            onContent(contents, url)
-          }
-        }
+      let isEntityExists = FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory)
+      guard isEntityExists == true else { continue }
+
+      if (isDirectory.boolValue) {
+        getContentsOf(folder: url, onContent: onContent, onSearchStop: onSearchStop, onSearchProgress: onSearchProgress, isToplevel: false)
+      } else {
+        guard let contents = NSData.init(contentsOf: url) else { continue }
+        onContent(contents, url)
       }
     }
     if (isToplevel) {
