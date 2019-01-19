@@ -19,7 +19,8 @@ final class Duplicate {
 
   var totalSize: String {
     get {
-      return self.covertSizeToString(size: self.size * UInt64(self.count))
+      let totalBytesCount: Int64 = Int64(size) * Int64(count)
+      return ByteCountFormatter.string(fromByteCount: totalBytesCount, countStyle: .file)
     }
   }
 
@@ -30,16 +31,5 @@ final class Duplicate {
 
   func append(file: String) {
     files.append(file)
-  }
-
-  private func covertSizeToString(size: UInt64) -> String {
-    var convertedValue: Double = Double(size)
-    var multiplyFactor = 0
-    let tokens = ["bytes", "KB", "MB", "GB", "TB", "PB",  "EB",  "ZB", "YB"]
-    while convertedValue > 1024 {
-      convertedValue /= 1024
-      multiplyFactor += 1
-    }
-    return String(format: "%4.2f %@", convertedValue, tokens[multiplyFactor])
   }
 }

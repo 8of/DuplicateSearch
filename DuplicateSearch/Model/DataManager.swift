@@ -24,7 +24,7 @@ final class DataManager {
 
   func getDuplicateFiles(onChange: @escaping ([String])->(), onSearchStop: @escaping ()-> (), onSearchProgress: @escaping (Progress)->()) {
     let folder = FileManager.default.homeDirectoryForCurrentUser
-    // Replace with prev line with next line to test on folder with less content
+    // Replace prev line with next line to test on folder with less content
     // let folder = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Downloads")
 
     queue.async {

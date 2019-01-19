@@ -18,12 +18,6 @@ final class ViewController: NSViewController {
   @IBOutlet var searchButton: NSButton!
   @IBOutlet var tableView: NSTableView!
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    startSearch()
-  }
-
   private func startSearch() {
     isSearchInProgress = true
     searchButton.title = "Stop search"
